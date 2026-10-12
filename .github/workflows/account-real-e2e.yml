@@ -1,0 +1,33 @@
+name: JUKAN Account Real E2E
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-supabase:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      JUKAN_E2E_EMAIL: ${{ secrets.JUKAN_E2E_EMAIL }}
+      JUKAN_E2E_PASSWORD: ${{ secrets.JUKAN_E2E_PASSWORD }}
+      JUKAN_E2E_EXPECT_ENTITLEMENT: ${{ vars.JUKAN_E2E_EXPECT_ENTITLEMENT }}
+      JUKAN_E2E_REQUIRE_OAUTH: ${{ vars.JUKAN_E2E_REQUIRE_OAUTH }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Probe Google and Apple Auth providers
+        run: npm run test:e2e:providers
+      - name: Require E2E credentials
+        run: |
+          test -n "$JUKAN_E2E_EMAIL" || { echo 'Missing JUKAN_E2E_EMAIL secret' >&2; exit 1; }
+          test -n "$JUKAN_E2E_PASSWORD" || { echo 'Missing JUKAN_E2E_PASSWORD secret' >&2; exit 1; }
+      - name: Run real Email and cross-device membership E2E
+        run: npm run test:e2e:account
