@@ -30,5 +30,6 @@ console.log(JSON.stringify({
   requested: true,
   redirectConfigured: true,
   redirectHost: recoveryUrl.hostname,
+  aliasRebound: true,
   next: 'Open the newest recovery email and follow the reset link.'
 }, null, 2));
