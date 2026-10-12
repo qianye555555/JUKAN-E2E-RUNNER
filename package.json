@@ -2,6 +2,7 @@
   "name": "jukan-e2e-runner",
   "private": true,
   "type": "module",
+  "description": "JUKAN isolated Account E2E runner",
   "scripts": {
     "test:e2e:account": "node scripts/account-real-e2e.mjs",
     "test:e2e:providers": "node scripts/account-real-e2e.mjs --providers"
