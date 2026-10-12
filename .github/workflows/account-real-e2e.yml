@@ -7,6 +7,7 @@ on:
     paths:
       - 'package.json'
       - 'scripts/account-real-e2e.mjs'
+      - 'scripts/account-recovery-request.mjs'
       - '.github/workflows/account-real-e2e.yml'
 
 permissions:
@@ -36,3 +37,6 @@ jobs:
           test -n "$JUKAN_E2E_PASSWORD" || { echo 'Missing JUKAN_E2E_PASSWORD secret' >&2; exit 1; }
       - name: Run real Email and cross-device membership E2E
         run: npm run test:e2e:account
+      - name: One-shot recovery lab request
+        if: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[recovery-lab]') }}
+        run: node scripts/account-recovery-request.mjs
