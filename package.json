@@ -1,0 +1,12 @@
+{
+  "name": "jukan-e2e-runner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e:account": "node scripts/account-real-e2e.mjs",
+    "test:e2e:providers": "node scripts/account-real-e2e.mjs --providers"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.3"
+  }
+}
