@@ -7,6 +7,9 @@ const RECOVERY_REDIRECT = 'https://jukan-preview-5wpbaeil6-qianye555555-9461.ver
 const email = String(process.env.JUKAN_E2E_EMAIL || '').trim();
 
 assert.ok(email, 'JUKAN_E2E_EMAIL is required');
+const recoveryUrl = new URL(RECOVERY_REDIRECT);
+assert.equal(recoveryUrl.protocol, 'https:', 'Recovery redirect must use HTTPS');
+assert.equal(recoveryUrl.hostname, 'jukan-preview-5wpbaeil6-qianye555555-9461.vercel.app', 'Unexpected recovery redirect host');
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: {
@@ -26,5 +29,6 @@ console.log(JSON.stringify({
   mode: 'recovery-request',
   requested: true,
   redirectConfigured: true,
-  next: 'Open the recovery email and follow the reset link.'
+  redirectHost: recoveryUrl.hostname,
+  next: 'Open the newest recovery email and follow the reset link.'
 }, null, 2));
