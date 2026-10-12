@@ -2,6 +2,12 @@ name: JUKAN Account Real E2E
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'package.json'
+      - 'scripts/account-real-e2e.mjs'
+      - '.github/workflows/account-real-e2e.yml'
 
 permissions:
   contents: read
