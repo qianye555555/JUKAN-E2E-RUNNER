@@ -2,12 +2,16 @@ name: JUKAN Account Real E2E
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - recovery/c-line-validation-20261013
 
 permissions:
   contents: read
 
 jobs:
   real-supabase:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[recovery-full]')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
