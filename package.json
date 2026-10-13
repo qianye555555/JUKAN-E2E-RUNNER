@@ -5,8 +5,7 @@
   "description": "JUKAN isolated Account E2E runner",
   "scripts": {
     "test:e2e:account": "node scripts/account-real-e2e.mjs",
-    "test:e2e:providers": "node scripts/account-real-e2e.mjs --providers",
-    "test:e2e:recovery": "node scripts/account-recovery-full-e2e.mjs"
+    "test:e2e:providers": "node scripts/account-real-e2e.mjs --providers"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.117.3"
